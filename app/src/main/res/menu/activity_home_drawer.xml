@@ -5,15 +5,15 @@
         <item
             android:id="@+id/rentFrag"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Rent"/>
+            android:title="@string/rent_fragment_name"/>
         <item
             android:id="@+id/sharesFrag"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Shares"/>
+            android:title="@string/shares_fragment_name"/>
         <item
             android:id="@+id/issueFrag"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Issues"/>
+            android:title="@string/issues_fragment_name"/>
 
         <!--<item-->
             <!--android:id="@+id/nav_camera"-->
