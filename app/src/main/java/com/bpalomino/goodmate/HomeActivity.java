@@ -1,8 +1,11 @@
 package com.bpalomino.goodmate;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,8 +16,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import menu.IssuesFragment;
+import menu.RentFragment;
+import menu.SharesFragment;
+
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements
+        NavigationView.OnNavigationItemSelectedListener,
+        RentFragment.OnFragmentInteractionListener,
+        SharesFragment.OnFragmentInteractionListener,
+        IssuesFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +51,13 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Fragment additions
+        navigationView.setCheckedItem(R.id.rentFrag);
+
+        // open rent frag initially
+        RentFragment rentFragment = new RentFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,rentFragment).commit();
     }
 
     @Override
@@ -80,22 +98,45 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        // fragment object container
+        Fragment fragment = null;
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if(id == R.id.rentFrag) {
+            fragment = new RentFragment();
+        } else if(id == R.id.sharesFrag) {
+            fragment = new SharesFragment();
+        } else if(id == R.id.issueFrag) {
+            fragment = new IssuesFragment();
         }
+
+//        if (id == R.id.nav_camera) {
+//            // Handle the camera action
+//        } else if (id == R.id.nav_gallery) {
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
+
+        // Fragment changing code
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,fragment).commit();
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(String title) {
+        getSupportActionBar().setTitle(title);
+
     }
 }
