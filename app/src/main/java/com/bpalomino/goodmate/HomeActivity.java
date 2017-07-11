@@ -101,6 +101,7 @@ public class HomeActivity extends AppCompatActivity
         // fragment object container
         Fragment fragment = null;
 
+        // Check which fragment is selected
         if(id == R.id.rentFrag) {
             fragment = new RentFragment();
         } else if(id == R.id.sharesFrag) {
@@ -109,25 +110,10 @@ public class HomeActivity extends AppCompatActivity
             fragment = new IssuesFragment();
         }
 
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-
-        // Fragment changing code
+        // Switch fragment
         if (fragment != null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame,fragment).commit();
         }
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -136,6 +122,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(String title) {
+        // when fragment loads set new title in toolbar
         getSupportActionBar().setTitle(title);
 
     }
