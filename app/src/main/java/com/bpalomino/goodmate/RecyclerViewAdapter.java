@@ -1,6 +1,7 @@
 package com.bpalomino.goodmate;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +15,8 @@ import java.util.List;
  */
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<View_Holder> {
-    List<ShareItem> list = Collections.emptyList();
-    Context context;
+    private List<ShareItem> list = Collections.emptyList();
+    private Context context;
 
     public RecyclerViewAdapter(List<ShareItem> list, Context context) {
         this.list = list;

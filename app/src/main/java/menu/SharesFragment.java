@@ -4,11 +4,27 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bpalomino.goodmate.R;
+import com.bpalomino.goodmate.RecyclerItemClickListener;
+import com.bpalomino.goodmate.RecyclerViewAdapter;
+import com.bpalomino.goodmate.ShareItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import layout.ItemFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +85,40 @@ public class SharesFragment extends Fragment {
         if(mListener != null){
             mListener.onFragmentInteraction("Shares");
         }
+
+        final List<ShareItem> items = fill_with_item();
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(items, view.getContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Fragment fragment = new ItemFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id",position);
+                fragment.setArguments(bundle);
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, fragment).addToBackStack(null).commit();
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
         return view;
+    }
+
+    public List<ShareItem> fill_with_item() {
+        List<ShareItem> items = new ArrayList<>();
+        items.add(new ShareItem("Toilet Paper","Charmin",R.drawable.ic_menu_send));
+        items.add(new ShareItem("Paper towels", "Costco", R.drawable.ic_menu_share));
+        items.add(new ShareItem("Plastic Cups", "Target", R.drawable.ic_menu_send));
+        items.add(new ShareItem("Trash Bags", "Target", R.drawable.ic_menu_gallery));
+        items.add(new ShareItem("Napkins", "Winco", R.drawable.ic_menu_manage));
+        items.add(new ShareItem("Toothpaste", "Target", R.drawable.ic_menu_camera));
+        return items;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
