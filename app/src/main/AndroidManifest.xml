@@ -32,7 +32,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.bpalomino.goodmate.LoginActivity" />
         </activity>
-        <activity android:name=".AddRentSheetActivity"></activity>
+        <activity
+            android:windowSoftInputMode="adjustPan"
+            android:name=".AddRentSheetActivity">
+        </activity>
     </application>
 
 </manifest>
