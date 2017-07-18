@@ -1,6 +1,7 @@
 package menu;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bpalomino.goodmate.AddRentSheetActivity;
 import com.bpalomino.goodmate.R;
+
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,10 +71,11 @@ public class RentFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_rent, container, false);
-
+        ButterKnife.bind(this,view);
         if(mListener != null){
             mListener.onFragmentInteraction("Rent");
         }
+
         return view;
     }
 
@@ -79,6 +85,12 @@ public class RentFragment extends Fragment {
 //            mListener.onFragmentInteraction(uri);
 //        }
 //    }
+
+    @OnClick(R.id.addRentFab)
+    public void addRent(){
+        Intent intent = new Intent(getActivity(), AddRentSheetActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onAttach(Context context) {
