@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
 
 public class AddRentSheetActivity extends AppCompatActivity {
     @BindView(R.id.addRent_list_view) ListView rentList;
-    private ArrayList<String> items;
+    private ArrayList<RentGroup> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class AddRentSheetActivity extends AppCompatActivity {
         items = new ArrayList<>();
 
         //need one starter blank item
-        items.add("");
+        items.add(new RentGroup(R.drawable.ic_add_circle_outline_24dp,0));
 
         // custom adapter for listview
         RentSheetAdapter adapter = new RentSheetAdapter(this, items);
