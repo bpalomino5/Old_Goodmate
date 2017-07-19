@@ -7,15 +7,24 @@
     android:orientation="horizontal">
 
     <EditText
-        android:id="@+id/groupView"
+        android:id="@+id/billType"
+        android:hint="Bill Type"
+        android:textSize="20sp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" />
+
+    <EditText
+        android:id="@+id/billValue"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:inputType="numberDecimal"
         android:layout_weight="2"
-        android:hint="Bill item"
+        android:hint="Value"
         android:textSize="20sp" />
 
     <ImageButton
-        android:id="@+id/groupAddButton"
+        android:id="@+id/billItemAddButton"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginEnd="10dp"

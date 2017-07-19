@@ -7,11 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +28,7 @@ public class AddRentSheetActivity extends AppCompatActivity {
     Toolbar toolbarRent;
 
     private ArrayList<String> dataHeaders;
-    private HashMap<String,ArrayList<RentGroup>> dataChild;
+    private HashMap<String,ArrayList<RentItem>> dataChild;
     private RentSheetAdapter adapter;
 
     @Override
@@ -65,8 +63,8 @@ public class AddRentSheetActivity extends AppCompatActivity {
                 //once group name finalized with done
                 //init dataheaders and datachild
                 dataHeaders.add(text.getText().toString());
-                ArrayList<RentGroup> items = new ArrayList<>();
-                items.add(new RentGroup(R.drawable.ic_add_circle_outline_24dp,0));
+                ArrayList<RentItem> items = new ArrayList<>();
+                items.add(new RentItem(R.drawable.ic_add_circle_outline_24dp,0));
                 dataChild.put(dataHeaders.get(dataHeaders.size()-1),items);
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
@@ -89,6 +87,12 @@ public class AddRentSheetActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
     }
 
     private void populateList() {

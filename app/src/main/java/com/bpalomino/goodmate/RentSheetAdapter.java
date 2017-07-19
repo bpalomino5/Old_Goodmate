@@ -7,12 +7,13 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,14 +27,16 @@ import butterknife.ButterKnife;
 public class RentSheetAdapter extends BaseExpandableListAdapter {
     private Context context;
     private ArrayList<String> dataHeaders;
-    private HashMap<String, ArrayList<RentGroup>> dataChild;
+    private HashMap<String, ArrayList<RentItem>> dataChild;
 
 
     public class ChildViewHolder {
-        @BindView(R.id.groupView)
-        EditText editText;
-        @BindView(R.id.groupAddButton)
-        ImageButton addGroupButton;
+        @BindView(R.id.billValue)
+        EditText valueText;
+        @BindView(R.id.billItemAddButton)
+        ImageButton billItemAddButton;
+        @BindView(R.id.billType)
+        EditText typeText;
     }
 
     @BindView(R.id.listHeaderView)
@@ -41,7 +44,7 @@ public class RentSheetAdapter extends BaseExpandableListAdapter {
 
     private ChildViewHolder childViewHolder;
 
-    public RentSheetAdapter(Context context, ArrayList<String> dataHeaders, HashMap<String, ArrayList<RentGroup>> dataChild) {
+    public RentSheetAdapter(Context context, ArrayList<String> dataHeaders, HashMap<String, ArrayList<RentItem>> dataChild) {
         this.context = context;
         this.dataHeaders = dataHeaders;
         this.dataChild = dataChild;
@@ -108,14 +111,15 @@ public class RentSheetAdapter extends BaseExpandableListAdapter {
         ButterKnife.bind(childViewHolder, view);
 
         //get item from datasource
-        RentGroup item = (RentGroup) getChild(i, i1);
+        RentItem item = (RentItem) getChild(i, i1);
 
 
         //set edittext to its group name
-//        childViewHolder.editText.setText(item.group);
+        childViewHolder.typeText.setText(item.type);
+        childViewHolder.valueText.setText(item.value);
 
         //listener to see when text is inputted by user
-        childViewHolder.editText.addTextChangedListener(new TextWatcher() {
+        childViewHolder.typeText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -127,22 +131,23 @@ public class RentSheetAdapter extends BaseExpandableListAdapter {
             @Override
             public void afterTextChanged(Editable editable) {
                 //update data source on new group name
-                dataChild.get(dataHeaders.get(i)).get(i1).group = editable.toString().trim();
+                dataChild.get(dataHeaders.get(i)).get(i1).type = editable.toString().trim();
             }
         });
+        childViewHolder.valueText.addTextChangedListener(new MoneyTextWatcher(childViewHolder.valueText, dataChild,dataHeaders.get(i), i1));
 
         //set image from data source
-        childViewHolder.addGroupButton.setImageResource(item.imageRes);
-        childViewHolder.addGroupButton.setTag(item.tag);
+        childViewHolder.billItemAddButton.setImageResource(item.imageRes);
+        childViewHolder.billItemAddButton.setTag(item.tag);
 
         //listener to see if button selected
-        childViewHolder.addGroupButton.setOnClickListener(new View.OnClickListener() {
+        childViewHolder.billItemAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //identify which button it is - add/remove
                 ImageButton button = (ImageButton) view;
                 if ((int) button.getTag() == 0)
-                    dataChild.get(dataHeaders.get(i)).add(new RentGroup(R.drawable.ic_remove_circle_outline_24dp, 1));
+                    dataChild.get(dataHeaders.get(i)).add(new RentItem(R.drawable.ic_remove_circle_outline_24dp, 1));
                 else
                     dataChild.get(dataHeaders.get(i)).remove(i1);
                 //update user's screen with changes
