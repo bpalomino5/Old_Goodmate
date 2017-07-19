@@ -93,6 +93,7 @@ public class RentSheetAdapter extends BaseExpandableListAdapter {
 
 
 //        listHeaderView.setTypeface(null, Typeface.BOLD);
+        listHeaderView.setText(title);
 
         return view;
     }

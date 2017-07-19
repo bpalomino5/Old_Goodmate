@@ -1,8 +1,12 @@
 package com.bpalomino.goodmate;
 
+import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 
@@ -29,19 +33,32 @@ public class AddRentSheetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_rent_sheet);
         ButterKnife.bind(this);
 
-        //data source list
-//        groupItems = new ArrayList<>();
-
-        //need one starter blank item
-//        groupItems.add(new RentGroup(R.drawable.ic_add_circle_outline_24dp,0));
-
         //populate list with items
         populateList();
 
         // custom adapter for expandable listview
-        RentSheetAdapter adapter = new RentSheetAdapter(this, dataHeaders,dataChild);
+        final RentSheetAdapter adapter = new RentSheetAdapter(this, dataHeaders,dataChild);
 
         rentList.setAdapter(adapter);
+
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog);
+        Button done = dialog.findViewById(R.id.dialogButtonDone);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditText text = dialog.findViewById(R.id.dialog_input_view);
+                System.out.println(text.getText().toString());
+                String oldKey = dataHeaders.get(0);
+                dataHeaders.set(0,text.getText().toString());
+                dataChild.put(dataHeaders.get(0), dataChild.remove(oldKey));
+                adapter.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
     }
 
     private void populateList() {
