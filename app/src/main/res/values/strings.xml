@@ -28,4 +28,6 @@
     <string name="rent_fragment_name">Rent</string>
     <string name="shares_fragment_name">Shares</string>
     <string name="issues_fragment_name">Issues</string>
+
+    <string name="group_prompt"><u>Group Name</u></string>
 </resources>
