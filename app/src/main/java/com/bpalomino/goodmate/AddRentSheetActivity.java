@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,9 +29,9 @@ public class AddRentSheetActivity extends AppCompatActivity {
     @BindView(R.id.toolbarRent)
     Toolbar toolbarRent;
 
-    private ArrayList<RentGroup> groupItems;
     private ArrayList<String> dataHeaders;
     private HashMap<String,ArrayList<RentGroup>> dataChild;
+    private RentSheetAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +41,19 @@ public class AddRentSheetActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbarRent);
         getSupportActionBar().setTitle("Rent Sheet");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //populate list with items
         populateList();
 
         // custom adapter for expandable listview
-        final RentSheetAdapter adapter = new RentSheetAdapter(this, dataHeaders,dataChild);
+        adapter = new RentSheetAdapter(this, dataHeaders,dataChild);
 
         rentList.setAdapter(adapter);
 
+        promptDialog();
+    }
 
+    private void promptDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog);
         Button done = dialog.findViewById(R.id.dialogButtonDone);
@@ -56,16 +61,18 @@ public class AddRentSheetActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText text = dialog.findViewById(R.id.dialog_input_view);
-                System.out.println(text.getText().toString());
-                String oldKey = dataHeaders.get(0);
-                dataHeaders.set(0,text.getText().toString());
-                dataChild.put(dataHeaders.get(0), dataChild.remove(oldKey));
+
+                //once group name finalized with done
+                //init dataheaders and datachild
+                dataHeaders.add(text.getText().toString());
+                ArrayList<RentGroup> items = new ArrayList<>();
+                items.add(new RentGroup(R.drawable.ic_add_circle_outline_24dp,0));
+                dataChild.put(dataHeaders.get(dataHeaders.size()-1),items);
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
         dialog.show();
-
     }
 
     @Override
@@ -74,17 +81,18 @@ public class AddRentSheetActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.tiAdd){
+            promptDialog();
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
     private void populateList() {
         dataHeaders = new ArrayList<>();
         dataChild = new HashMap<>();
-
-        //adding header data
-        dataHeaders.add("Group Name");
-
-        //adding child data
-        ArrayList<RentGroup> items = new ArrayList<>();
-        items.add(new RentGroup(R.drawable.ic_add_circle_outline_24dp,0));
-        dataChild.put(dataHeaders.get(0),items);
-
     }
 }
