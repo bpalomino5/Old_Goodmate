@@ -3,6 +3,8 @@ package com.bpalomino.goodmate;
 import android.app.Dialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,6 +25,9 @@ import butterknife.ButterKnife;
 public class AddRentSheetActivity extends AppCompatActivity {
     @BindView(R.id.addRent_list_view)
     ExpandableListView rentList;
+    @BindView(R.id.toolbarRent)
+    Toolbar toolbarRent;
+
     private ArrayList<RentGroup> groupItems;
     private ArrayList<String> dataHeaders;
     private HashMap<String,ArrayList<RentGroup>> dataChild;
@@ -33,6 +38,8 @@ public class AddRentSheetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_rent_sheet);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbarRent);
+        getSupportActionBar().setTitle("Rent Sheet");
         //populate list with items
         populateList();
 
@@ -59,6 +66,12 @@ public class AddRentSheetActivity extends AppCompatActivity {
         });
         dialog.show();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tool_menu,menu);
+        return true;
     }
 
     private void populateList() {

@@ -33,6 +33,7 @@
                 android:value="com.bpalomino.goodmate.LoginActivity" />
         </activity>
         <activity
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"
             android:name=".AddRentSheetActivity">
         </activity>
