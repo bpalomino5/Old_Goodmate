@@ -1,6 +1,7 @@
 package com.bpalomino.goodmate;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -66,6 +67,7 @@ public class AddRentSheetActivity extends AppCompatActivity {
                 ArrayList<RentItem> items = new ArrayList<>();
                 items.add(new RentItem(R.drawable.ic_add_circle_outline_24dp,0));
                 dataChild.put(dataHeaders.get(dataHeaders.size()-1),items);
+                rentList.expandGroup(dataHeaders.size()-1);
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
@@ -84,6 +86,13 @@ public class AddRentSheetActivity extends AppCompatActivity {
         int id = item.getItemId();
         if(id == R.id.tiAdd){
             promptDialog();
+        }
+        else if(id == R.id.tiDone){
+            Intent intent = new Intent();
+//            intent.putExtra("dataChild",dataChild);
+//            intent.putExtra("dataHeaders",dataHeaders);
+            setResult(RESULT_OK,intent);
+            finish();
         }
         return super.onOptionsItemSelected(item);
 

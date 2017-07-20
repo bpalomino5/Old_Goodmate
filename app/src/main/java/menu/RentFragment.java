@@ -11,9 +11,15 @@ import android.view.ViewGroup;
 
 import com.bpalomino.goodmate.AddRentSheetActivity;
 import com.bpalomino.goodmate.R;
+import com.bpalomino.goodmate.RentItem;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +40,8 @@ public class RentFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private ArrayList<String> dataHeaders;
+    private HashMap<String, ArrayList<RentItem>> dataChild;
 
     public RentFragment() {
         // Required empty public constructor
@@ -89,7 +97,19 @@ public class RentFragment extends Fragment {
     @OnClick(R.id.addRentFab)
     public void addRent(){
         Intent intent = new Intent(getActivity(), AddRentSheetActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1){
+            if(resultCode==RESULT_OK){
+//                dataChild = (HashMap<String, ArrayList<RentItem>>) data.getParcelableExtra("dataChild");
+//                dataHeaders = (ArrayList<String>) data.getSerializableExtra("dataHeaders");
+//                System.out.println(dataHeaders);
+            }
+        }
     }
 
     @Override

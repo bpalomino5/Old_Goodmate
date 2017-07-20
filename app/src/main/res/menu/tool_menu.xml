@@ -8,4 +8,10 @@
         android:title="Add"
         app:showAsAction="ifRoom">
     </item>
+    <item
+        android:id="@+id/tiDone"
+        android:icon="@drawable/ic_done_24dp"
+        android:title="Done"
+        app:showAsAction="ifRoom">
+    </item>
 </menu>
