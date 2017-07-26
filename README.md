@@ -17,8 +17,6 @@ Get started by downloading the free Goodmate app from the Google Playstore! Make
 - Shares Organizer
 - Issues Bulletin Board
 
-<html>
-<body>
 <h2>Privacy Policy</h2>
 <p>Brandon Palomino built the Goodmate app as a free | commercial app. This SERVICE is provided by Brandon Palomino at no cost and is intended
     for use as is.</p>
@@ -95,5 +93,3 @@ Get started by downloading the free Goodmate app from the Google Playstore! Make
 <p><strong>Contact Us</strong></p>
 <p>If you have any questions or suggestions about my Privacy Policy, do not hesitate to contact
     me.</p>
-</body>
-</html>
