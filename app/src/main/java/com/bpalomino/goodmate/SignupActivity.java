@@ -23,7 +23,6 @@ import butterknife.OnClick;
 public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth auth;
 
-    @BindView(R.id.sign_in_button) Button btnSignIn;
     @BindView(R.id.sign_up_button) Button btnSignUp;
     @BindView(R.id.email) EditText inputEmail;
     @BindView(R.id.password) EditText inputPassword;
@@ -81,6 +80,11 @@ public class SignupActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    @OnClick(R.id.sign_in_button)
+    public void SignIn(Button btnSignIn){
+        finish();
     }
 
     @Override

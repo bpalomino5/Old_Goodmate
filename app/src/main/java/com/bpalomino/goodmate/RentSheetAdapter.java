@@ -136,7 +136,7 @@ public class RentSheetAdapter extends BaseExpandableListAdapter {
         });
         childViewHolder.valueText.addTextChangedListener(new MoneyTextWatcher(childViewHolder.valueText, dataChild,dataHeaders.get(i), i1));
 
-        //set image from data source
+        //set logo from data source
         childViewHolder.billItemAddButton.setImageResource(item.imageRes);
         childViewHolder.billItemAddButton.setTag(item.tag);
 
