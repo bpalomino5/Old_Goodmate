@@ -36,7 +36,9 @@
             android:name=".AddRentSheetActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".SignupActivity"></activity>
+        <activity
+            android:name=".SignupActivity">
+        </activity>
     </application>
 
 </manifest>
